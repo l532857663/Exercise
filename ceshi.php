@@ -31,4 +31,6 @@ $decrypt = AES::decrypt($encrypt, 'encryptedKey1234');
 echo "加密后:".$encrypt."\n";
 echo "解密：".$decrypt;
 echo "\n";
+echo "key:".base64_decode("pMBAusbsM3xHwI9s/5nzapcH3E2fkRI+OfcdF9L1jD0=");
+echo "\n";
 ?>
