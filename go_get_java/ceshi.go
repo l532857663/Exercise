@@ -1,18 +1,21 @@
 package main
 
-import(
-	"fmt"
+import (
 	"encoding/base64"
+	"fmt"
 )
 
 func main() {
 	fmt.Println("Start")
-	key := "pMBAusbsM3xHwI9s/5nzapcH3E2fkRI+OfcdF9L1jD0="
-	keyBytes, err := base64.StdEncoding.DecodeString(key)
+	key := []byte("encryptedKey1234encryptedKey1234")
+	keyBase64 := base64.StdEncoding.EncodeToString(key)
+	fmt.Println("key base64:", keyBase64, len(keyBase64))
+	keyString := "6Ie5hEWp6VsaM5NYD0i/Kw=="
+	keyBytes, err := base64.StdEncoding.DecodeString(keyString)
 	if err != nil {
 		fmt.Println("decode error:", err)
 		return
 	}
-	fmt.Println("key bytes:", keyBytes, len(keyBytes))
+	fmt.Println("key bytes:", keyBytes, len(keyBytes), string(keyBytes))
 	fmt.Println("End")
 }

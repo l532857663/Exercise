@@ -64,16 +64,11 @@ public class GeneratorKey {
      * aes加密-256位
      */
     public static String aesEncrypt(String content, String password) {
-        if (password.length() !=16) {
+        if (password.length() !=32) {
             System.out.println("password must be is 16 bytes");
         }
         try {
             Encoder encoder = Base64.getEncoder();
-            KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-            secureRandom.setSeed(password.getBytes());
-            keyGen.init(256, secureRandom);
-            SecretKey secretKey = keyGen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
             Cipher cipher = Cipher.getInstance(ALGORITHM);
