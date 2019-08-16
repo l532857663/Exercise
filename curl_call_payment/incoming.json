@@ -1,0 +1,53 @@
+{
+"sub_merchant_id":"wtbstore0000001",
+"sub_merchant_name":"京文投旗舰店",
+"sub_merchant_short_name":"京文投",
+"merchant_id_type":"01",
+"merchant_id_no":"23153645234",
+"merc_attr":"1",
+"merc_id_eff_dt":"20160411",
+"merc_id_exp_dt":"20220109",
+"reg_address":"北京珠市口",
+"provice":"01",
+"city":"1000",
+"region":"100001",
+"mcc_cd":"101",
+"mcc_sub_cd":"0101",
+"open_dt":"20180808",
+"administrator":{
+	"usr_opr_nm":"管理员",
+	"usr_opr_mbl":"13849685271",
+	"usr_opr_email":"wtb@163.com",
+	"merc_cert_typ":"1-RSA"
+},
+"owner":{
+	"enterprise_owner":"法人",
+	"enterprise_owner_id_type":"00",
+	"enterprise_owner_id_no":"130621198811182718",
+	"enterprise_owner_id_eff_dt":"20100102",
+	"enterprise_owner_id_exp_dt":"20300102"
+},
+"contact":{
+	"contact_type":"1",
+	"contact_name":"业务联系人",
+	"contact_mobile":"13849685272",
+	"contact_email":"wtb1@163.com"
+},
+"stl_lst":{
+	"stl_sign":"0",
+	"self_stl_flg":"N",
+	"bank_name":"CCB",
+	"stl_bank_name":"中国建设银行",
+	"i_bnk_no":"105100001052",
+	"stl_oac":"622700005034567",
+	"bnk_opn_name":"中国建设银行钓鱼台支行",
+	"stl_cls":"1",
+	"stl_perd":"0",
+	"stl_day":"10",
+	"stl_trf_days":"3",
+	"pas_stl_flg":"0",
+	"stl_beg_amt":"500",
+	"min_rtn_amt":"100"
+},
+"fee_charge_flg":"1"
+}

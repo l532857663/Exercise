@@ -1,0 +1,8 @@
+curl -vi -XGET http://192.168.20.190:8931/v1/paymax_mngtxns/annex/wtbstore0000001
+curl -vi -XGET http://192.168.20.190:8931/v1/paymax_mngtxns/incoming/wtbstore0000001
+
+-H"Content-Type: application/json"
+curl -vi -XPOST -d@annex.json  http://192.168.20.190:8931/v1/paymax_mngtxns/annex
+curl -vi -XPOST -d@incoming.json http://192.168.20.190:8931/v1/paymax_mngtxns/incoming
+curl -vi -XPOST -d@pay.json http://192.168.20.190:8931/v1/paymax_txns/pay
+curl -vi -XPOST -d@refund.json http://192.168.20.190:8931/v1/paymax_txns/refund

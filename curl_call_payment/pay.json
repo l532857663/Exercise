@@ -1,0 +1,15 @@
+{
+"wtb_uid":"34",
+"channel":"separate_alipay_csb",
+"merchant_order_no":"ceshidingdanhao1",
+"merchant_order_time":"20190530105759",
+"total_amount":2,
+"valid_unit":"00",
+"valid_num":123,
+"details":[
+{"sub_order_seq":"001","sub_order_no":"asdasd12","amount":1,"rev_merchant_id":"wtbstore0000001","rev_merchant_name":"文投宝","product_name":"猪币"},
+{"sub_order_seq":"002","sub_order_no":"asdasd22","amount":1,"rev_merchant_id":"wtbstore0000001","rev_merchant_name":"文投宝","product_name":"熊猫币"}
+],
+"description":"awfa",
+"client_ip":"192.168.20.888"
+}
