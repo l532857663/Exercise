@@ -23,8 +23,13 @@ func pase_s() map[string]*student {
 }
 
 func main() {
+	/*
 	a := pase_s()
 	for k, v := range a {
 		fmt.Printf("k: %s, v: %v\n", k, v)
 	}
+	*/
+	var a = true
+	a && (a = false)
+	fmt.Println("a:",a)
 }
