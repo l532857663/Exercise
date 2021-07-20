@@ -15,22 +15,12 @@ func main() {
 	data := []string{
 		// 原文 私钥 地址 签名数据
 		// 导入账户
-		//`{"entity_id":"1625","address":"0x44d6e1d986985495f0a1367eec0194a6886cf575","chain_id":"60","public_key":"04cfc82d6bc742dbe2bb4111c2056767963438723e3b31d66b0c62d842f7adc0c410fd570e6421f38451b396efc80c4b73aacf50e32764d65526e38de682c52a9a","description":"123564"}`,
-		// 修改参数
-		// `{"entity_id":"1625","address":"0x44d6e1d986985495f0a1367eec0194a6886cf575","chain_id":"60","name":"我的账户"}`,
-		// "0xec54417b4b1a32ce2c272d35ae5e9a7ad38eefd6974df69d0cf9f407951d06fc",// f575
-		// "0x44d6e1d986985495f0a1367eec0194a6886cf575",
-		// 导入账户
-		`{"entity_id":"1625","address":"0x04dc1cef86255e07a4041f532625b2ecb1203d48","chain_id":"60","public_key":"04362d3225f4a703eaec04a7be7399e709257f42724dcac0a2e9e0c6444c10d1b4628444c6526b69d86033ed9bd503c025222fd30dbddd1950e5831a5b2230cac8","name":"我的账户1"}`,
-		// 确认操作
-		// `{"entity_id":"1625","address":"0x04dc1cef86255e07a4041f532625b2ecb1203d48","chain_id":"60","id":"62"}`,
-		// 修改参数
-		// `{"entity_id":"1625","address":"0x04dc1cef86255e07a4041f532625b2ecb1203d48","chain_id":"60","name":"工资卡"}`,
-		// `{"entity_id":"1625","address":"0x04dc1cef86255e07a4041f532625b2ecb1203d48","chain_id":"da","is_default":"1"}`,
-		"0x00fc666a057b82048b8ea75838851eecad97ae7b53fddd9a1d6ae6b497167b0e", // 3d48
-		"0x04dc1cef86255e07a4041f532625b2ecb1203d48",
+		// `{"entity_id":"1625","address":"0x04dc1cef86255e07a4041f532625b2ecb1203d48","chain_id":"60","public_key":"04362d3225f4a703eaec04a7be7399e709257f42724dcac0a2e9e0c6444c10d1b4628444c6526b69d86033ed9bd503c025222fd30dbddd1950e5831a5b2230cac8","name":"我的账户1"}`,
+		"2354",
+		"0x550f14df38b6907dd55156d7cc15632bc5fd7adca4e6ba7e4b2993d50d01ee1f", // 8d42
+		"0x03A26A82c474A8a4743f196269aDcd820a098d42",
 		// 签名数据
-		"0xd95c9bbba0e88d6aa30cb6a0d161fd12b35adb23208c49d2621bc16ee03790d1686c73adc17d72fcabb14d77399349c3020805ae617000ecd54f77bd7272395a01",
+		"0x1c68af34541086f129dab79c37fd69af107b382e21299f6eb3745e87886beac70dbacb35dfd8a389521b504c7c09b30b9f689e3d524c953550d396230bd1d57601",
 	}
 	// 处理数据
 	dataByte := []byte(data[0])
