@@ -1,4 +1,4 @@
-package goDateFunc
+package date
 
 import "time"
 
