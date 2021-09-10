@@ -127,10 +127,126 @@ func test3() {
 	fmt.Println("arr:", k.Arr)
 }
 
+type LRUCache struct {
+	Head, Tail *Node
+	KeyMap     map[int]*Node
+	Length     int
+}
+
+type Node struct {
+	Prve, Next *Node
+	Key, Value int
+}
+
+func newLRUCache(length int) *LRUCache {
+	this := &LRUCache{
+		Head:   &Node{},
+		Tail:   &Node{},
+		KeyMap: make(map[int]*Node),
+		Length: length,
+	}
+	return this
+}
+
+func (this *LRUCache) Get(key int) int {
+	// 获取缓存中的数据
+	v, ok := this.KeyMap[key]
+	if !ok {
+		// 不存在缓存中，返回空
+		return -1
+	}
+	// 存在缓存中，去掉缓存，挪至第一位
+	this.Remove(v)
+	// 插入最前边
+	this.Insert(v)
+	return v.Value
+}
+
+func (this *LRUCache) Put(key, value int) {
+	// 判断是否存在缓存中
+	v, ok := this.KeyMap[key]
+	if ok {
+		// 存在更新缓存数据
+		this.Remove(v)
+		v.Value = value
+		this.Insert(v)
+		return
+	}
+	// 不存在，判断缓存长度
+	if this.Length == len(this.KeyMap) {
+		// 缓存填满，删除最后一个节点
+		this.Remove(this.Tail.Prve)
+	}
+	// 把数据插入第一个节点
+	this.Insert(&Node{
+		Next:  this.Head,
+		Key:   key,
+		Value: value,
+	})
+	return
+}
+
+func (this *LRUCache) Remove(node *Node) {
+	// 删除字典中的key
+	delete(this.KeyMap, node.Key)
+	// 移除链表对应的数据
+	node.Prve.Next = node.Next
+	node.Next.Prve = node.Prve
+	return
+}
+
+func (this *LRUCache) Insert(node *Node) {
+	// 添加字典信息
+	this.KeyMap[node.Key] = node
+	// 把节点加入链表头部
+	if this.Head.Next != nil {
+		next := this.Head.Next
+		next.Prve = node
+		node.Next = next
+	}
+	this.Head.Next = node
+	node.Prve = this.Head
+	if this.Tail.Prve == nil {
+		this.Tail.Prve = node
+		node.Next = this.Tail
+	}
+	return
+}
+
+func test4() {
+	// arr := []int{1, 2, 1, 3, 2}
+	arr := []int{1, 2, 1, 3, 2}
+	s := newLRUCache(2)
+	fmt.Printf("wch------ new %+v\n", s)
+	for _, a := range arr {
+		// GET
+		data := s.Get(a)
+		if data != -1 {
+			fmt.Printf("wch----- get %v, s %+v\n", a, s.Head.Next)
+			continue
+		}
+		// PUT
+		s.Put(a, a)
+		fmt.Printf("wch----- put %v, s %+v\n", a, s.Head.Next)
+	}
+	head := s.Head
+	i := 1
+	for {
+		fmt.Printf("wch------ head %+v\n", head)
+		if head.Next == nil || i == s.Length+2 {
+			break
+		}
+		head = head.Next
+		i++
+	}
+}
+
 func main() {
 	// test1()
 	// 使用两个队列模拟栈
 	// test2()
 	// 把某数量的括号组合成正确的排列 eg: 3组 ["((()))","(())()","()(())","()()()"]
-	test3()
+	// test3()
+	// LRU 缓存淘汰算法 最近最少使用
+	test4()
 }
