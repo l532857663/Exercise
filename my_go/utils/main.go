@@ -32,7 +32,8 @@ func test2() {
 	a := []int{9, 4, 3, 5, 6, 7, 1, 0, 8, 2, 4, 24, 13, 10}
 	fmt.Printf("wch------- a %+v\n", a)
 	// sort.ShellSort(a)
-	sort.BubbleSort(a)
+	// sort.BubbleSort(a)
+	sort.QuickSort(a)
 	fmt.Printf("wch------- b %+v\n", a)
 	return
 }

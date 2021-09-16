@@ -46,6 +46,34 @@ func (this *Node) FloorShow() {
 	return
 }
 
+// 左视图
+func (this *Node) LeftArr() []*Node {
+	var leftArr []*Node
+	if this == nil {
+		return leftArr
+	}
+
+	// 添加根元素
+	leftArr = append(leftArr, this)
+	floor := []*Node{this}
+	for len(floor) > 0 {
+		var tmpFloor []*Node
+		fmt.Printf("left start: %v\n", floor[0].Value)
+		leftArr = append(leftArr, floor[0])
+		// 左视图先加左边
+		for i := 0; i < len(floor); i++ {
+			if floor[i].Left != nil {
+				tmpFloor = append(tmpFloor, floor[i].Left)
+			}
+			if floor[i].Right != nil {
+				tmpFloor = append(tmpFloor, floor[i].Right)
+			}
+		}
+		floor = tmpFloor
+	}
+	return leftArr
+}
+
 func (this *Node) SetValue(value string) {
 	this.Value = value
 	return
@@ -66,6 +94,7 @@ func main() {
 	root.Right = CreateNode("3")
 
 	// root.PrvShow()
-	root.FloorShow()
+	// root.FloorShow()
+	root.LeftArr()
 	return
 }

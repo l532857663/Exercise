@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func test1() {
 	a := "11773422559966"
@@ -230,15 +233,96 @@ func test4() {
 		fmt.Printf("wch----- put %v, s %+v\n", a, s.Head.Next)
 	}
 	head := s.Head
-	i := 1
-	for {
+	for head.Next != nil {
 		fmt.Printf("wch------ head %+v\n", head)
-		if head.Next == nil || i == s.Length+2 {
-			break
-		}
 		head = head.Next
-		i++
 	}
+}
+
+type ANode struct {
+	Next  *ANode
+	Value int
+}
+
+func SetANodeValue(data int, next *ANode) *ANode {
+	node := &ANode{
+		Next:  next,
+		Value: data,
+	}
+	return node
+}
+
+func showLink(node *ANode) {
+	fmt.Printf("wch---- %+v\n", node)
+	for node.Next != nil {
+		fmt.Printf("wch---- %+v\n", node.Next)
+		node = node.Next
+	}
+}
+
+func reverseLink(head *ANode) *ANode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	res := reverseLink(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return res
+}
+
+func ReANode(link *ANode, k int) *ANode {
+	temp := link
+	for i := 1; i < k && temp != nil; i++ {
+		temp = temp.Next
+	}
+	if temp == nil {
+		return link
+	}
+	link2 := temp.Next
+	temp.Next = nil
+	// 逆序
+	showLink(link2)
+	newHead := reverseLink(link)
+	// 递归
+	newLink := ReANode(link2, k)
+	link.Next = newLink
+	return newHead
+}
+
+func test5() {
+	node := SetANodeValue(1, SetANodeValue(2, SetANodeValue(3, SetANodeValue(4, SetANodeValue(5, nil)))))
+
+	node = ReANode(node, 2)
+	showLink(node)
+	return
+}
+
+func test6() {
+	a := "()())((()))"
+	var res bool
+	var sum, max, tmp int
+	for _, str := range strings.Split(a, "") {
+		if str == "(" {
+			sum += 1
+			tmp += 1
+		} else {
+			sum -= 1
+			tmp += 1
+		}
+		if sum < 0 {
+			if tmp > max {
+				max = tmp
+			}
+			tmp = 0
+		}
+	}
+	if tmp > max {
+		max = tmp
+	}
+	if sum == 0 {
+		res = true
+	}
+	fmt.Println("wch------ res max\n", res, max)
 }
 
 func main() {
@@ -248,5 +332,10 @@ func main() {
 	// 把某数量的括号组合成正确的排列 eg: 3组 ["((()))","(())()","()(())","()()()"]
 	// test3()
 	// LRU 缓存淘汰算法 最近最少使用
-	test4()
+	// test4()
+	// 单链表反转
+	// test5()
+	// 有效括号字符串
+	// test6()
+	// 约瑟夫环
 }
