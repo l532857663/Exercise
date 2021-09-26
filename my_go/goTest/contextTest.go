@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"time"
@@ -41,9 +40,14 @@ func jobWithTimeoutHandler(w http.ResponseWriter, r *http.Request) {
 	case <-ctx.Done():
 		log.Println(ctx.Err())
 		return
-	case result := <-longRunningCalculation(5):
-		fmt.Printf("wch-------- long\n")
-		io.WriteString(w, result)
+	case <-time.After(3 * time.Second):
+		fmt.Printf("wch-------- timeout\n")
+		return
+		/*
+			case result := <-longRunningCalculation(5):
+				fmt.Printf("wch-------- long\n")
+				io.WriteString(w, result)
+		*/
 	}
 	fmt.Printf("wch-------- end\n")
 	return

@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+	"sync"
+	"time"
 )
 
 func test1() {
@@ -325,6 +327,96 @@ func test6() {
 	fmt.Println("wch------ res max\n", res, max)
 }
 
+func doit(ch, ch1 chan string) {
+	for i := 0; i < 10; i++ {
+		time.Sleep(time.Second)
+		ch <- "asdasd"
+		if i == 5 {
+			close(ch1)
+		}
+	}
+	return
+}
+
+func test7() {
+	ch := make(chan string, 10)
+	ch1 := make(chan string)
+	go doit(ch, ch1)
+	i := 0
+	for {
+		select {
+		//		case res := <-ch:
+		//			fmt.Println("wch------ 1", res)
+		case <-ch:
+			fmt.Println("wch------ 1-1")
+		case <-ch1:
+			fmt.Println("wch------ 2", i)
+			i += 1
+		default:
+			fmt.Println("wch----- default")
+		}
+		if i == 10 {
+			break
+		}
+		time.Sleep(time.Second * 1)
+	}
+	return
+}
+
+func getChan(ch1, ch2, ch3 chan int) {
+	fmt.Println("wch---- getChan start")
+	go func() {
+		for i := 0; i < 100; i++ {
+			switch {
+			case i%2 == 0:
+				ch1 <- i
+			case i%3 == 0:
+				ch2 <- i
+			case i%5 == 0:
+				ch3 <- i
+			}
+		}
+		close(ch1)
+		close(ch2)
+		close(ch3)
+	}()
+	fmt.Println("wch---- getChan end")
+}
+
+func test8() {
+	ch1 := make(chan int, 50)
+	ch2 := make(chan int, 50)
+	ch3 := make(chan int, 50)
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go getChan(ch1, ch2, ch3)
+	go func(ch1, ch2, ch3 chan int, wg *sync.WaitGroup) {
+		for {
+			c1, ok1 := <-ch1
+			if ok1 {
+				fmt.Println("wch---- c1:", c1)
+				continue
+			}
+			c2, ok2 := <-ch2
+			if ok2 {
+				fmt.Println("wch---- c2:", c2)
+				continue
+			}
+			c3, ok3 := <-ch3
+			if ok3 {
+				fmt.Println("wch---- c3:", c3)
+				continue
+			}
+			if !ok1 && !ok2 && !ok3 {
+				break
+			}
+		}
+		wg.Done()
+	}(ch1, ch2, ch3, &wg)
+	wg.Wait()
+	// time.Sleep(time.Second * 10)
+}
+
 func main() {
 	// test1()
 	// 使用两个队列模拟栈
@@ -337,5 +429,7 @@ func main() {
 	// test5()
 	// 有效括号字符串
 	// test6()
-	// 约瑟夫环
+	// select跟switch的区别
+	// test7()
+	test8()
 }

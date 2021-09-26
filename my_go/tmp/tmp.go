@@ -23,6 +23,7 @@ func main() {
 	r := runtime.GOMAXPROCS(1)
 	fmt.Printf("wch %v\n", r)
 	var wg sync.WaitGroup
+	var m sync.Map
 	a := 5
 	wg.Add(a)
 	for i := 0; i < a; i++ {
