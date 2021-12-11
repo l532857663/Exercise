@@ -29,9 +29,6 @@ func RunWindowsServer() {
 	time.Sleep(10 * time.Microsecond)
 	global.GVA_LOG.Info("server run success on ", zap.String("address", address))
 
-	fmt.Printf(`
-	默认自动化文档地址:http://127.0.0.1%s/swagger/index.html
-`, address)
 	signalHandler(appletName)
 }
 
@@ -49,9 +46,9 @@ func ServerClose() {
 }
 
 // @Description 系统信号捕获
-// @Author Jason
+// @Author Wangch
 // @Version 1.0
-// @Update Jason 2020-03-20 init
+// @Update Wangch 2021-12-11 init
 func signalHandler(appletName string) {
 	var (
 		ch = make(chan os.Signal)
