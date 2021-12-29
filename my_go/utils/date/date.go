@@ -7,6 +7,15 @@ import (
 	"time"
 )
 
+func init() {
+	var err error
+	AsiaLocation, err = time.LoadLocation("Asia/Shanghai")
+	if err != nil {
+		secondsEastOfUTC := int((8 * time.Hour).Seconds())
+		AsiaLocation = time.FixedZone("CST", secondsEastOfUTC)
+	}
+}
+
 // @Description 获取时间数据
 // @Author Wangch
 // @Version 1.0

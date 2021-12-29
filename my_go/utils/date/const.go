@@ -1,5 +1,7 @@
 package date
 
+import "time"
+
 type DateProcessor struct {
 }
 
@@ -26,4 +28,9 @@ const (
 	REQ_FLAG_ALL  = "all"
 	REQ_FLAG_TIME = "time"
 	REQ_FLAG_PAGE = "page"
+)
+
+var (
+	// 亚洲时区
+	AsiaLocation *time.Location
 )
