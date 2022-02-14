@@ -417,6 +417,16 @@ func test8() {
 	// time.Sleep(time.Second * 10)
 }
 
+func test9() {
+	var numbers4 = [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	myslice := numbers4[4:6:10]
+	fmt.Printf("myslice为 %d, 其长度为: %d\n", myslice, len(myslice))
+
+	fmt.Printf("test------- %+v, %+v\n", myslice, cap(myslice))
+	myslice = myslice[:cap(myslice)]
+	fmt.Printf("myslice的第四个元素为: %d", myslice[5])
+}
+
 func main() {
 	// test1()
 	// 使用两个队列模拟栈
@@ -431,5 +441,8 @@ func main() {
 	// test6()
 	// select跟switch的区别
 	// test7()
-	test8()
+	// 输出100内2、3、5的倍数?
+	// test8()
+	// 数组和切片
+	test9()
 }
