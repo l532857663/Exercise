@@ -9,13 +9,12 @@ var (
 	chain      = "polkadot"
 	apiNodeUrl = "https://polkadot.subscan.io/api"
 	// wssNodeUrl = "wss://rpc.polkadot.io"
-	wssNodeUrl        = "wss://westend-rpc.polkadot.io"
-	address           = "5FvLuFtdv91A84PG6RmsDbzS7Q23PdBUxLSaWtfBB2BDhe7e"
-	blockhash         = "0xbcaa7531d6caa18327eff14a22903aa7cad1fe7963d54a673f82cb9741f558e3"
-	txhash            = "0x5edbcd340b68f9700b39aac69801d27c71352803dea80805678cb86e25bb9e56" // 10405237-2
-	blocknum   uint64 = 10763536
-	blocknum1  uint64 = 10405237
-	// blocknum   uint64 = 10735225 // 广播成功 交易失败
+	wssNodeUrl = "wss://westend-rpc.polkadot.io"
+	address    = "5FvLuFtdv91A84PG6RmsDbzS7Q23PdBUxLSaWtfBB2BDhe7e"
+	blockhash  = "0xbcaa7531d6caa18327eff14a22903aa7cad1fe7963d54a673f82cb9741f558e3"
+	txhash     = "0x5edbcd340b68f9700b39aac69801d27c71352803dea80805678cb86e25bb9e56" // 10405237-2
+	// blocknum   uint64 = 10763536
+	blocknum uint64 = 10735225 // 广播成功 交易失败
 	// blocknum   uint64 = 10267021 // 广播成功 多交易示例
 	pubKey = "0xaa906db4057dc591b516da53f1af0fcaeea158e96236b7938e1cb830794de554"
 	// pubKey = "0x705046c0c12d4ef9b46bcbfe74d481f5576c19c12c288ca11dc9c89ff1448b36"
@@ -46,23 +45,23 @@ func main() {
 	// }
 	// fmt.Printf("Get block hash latest: %+v\n", latestBlockHash)
 
-	// 使用hash 查询块数据
-	err = node.GetBlockByHash(blockhash)
-	if err != nil {
-		fmt.Printf("Get block by block hash [%+v]: %+v\n", blockhash, err)
-		return
-	}
+	// // 使用hash 查询块数据
+	// err = node.GetBlockByHash(blockhash)
+	// if err != nil {
+	// 	fmt.Printf("Get block by block hash [%+v]: %+v\n", blockhash, err)
+	// 	return
+	// }
 
 	// accountInfo, _ := node.GetAccountInfoByPubKey(pubKey)
 	// fmt.Printf("wch------- accountInfo: %+v\n", accountInfo)
-	// // 使用块高 查询块数据
-	// fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n", blocknum)
-	// err = node.GetBlockByBlocknum(blocknum)
-	// if err != nil {
-	// 	fmt.Printf("Get block by block num [%+v]: %+v\n", blocknum, err)
-	// 	return
-	// }
-	// fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n\n", blocknum)
+	// 使用块高 查询块数据
+	fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n", blocknum)
+	err = node.GetBlockByBlocknum(blocknum)
+	if err != nil {
+		fmt.Printf("Get block by block num [%+v]: %+v\n", blocknum, err)
+		return
+	}
+	fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n\n", blocknum)
 
 	// // 使用公钥签名交易
 	// fmt.Printf("wch---- DoTransfer--------------------------------------------:\n")

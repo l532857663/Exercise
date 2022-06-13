@@ -94,6 +94,7 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 
 // 解析block数据
 func (n *Node) ShowBlockInfo(theHash string, block *types.SignedBlock) error {
+	fmt.Printf("wch------- block: %+v\n", block.Justification)
 	header := block.Block.Header
 	extrinsics := block.Block.Extrinsics
 	// 解析block头数据
