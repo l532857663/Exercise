@@ -26,7 +26,7 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 	}
 	fmt.Printf("wch---- toAddr: %+v\n", toAddr)
 	// 0.1 unit of transfer
-	bal, ok := new(big.Int).SetString("10000000000000", 10)
+	bal, ok := new(big.Int).SetString("20000000000", 10)
 	if !ok {
 		err = fmt.Errorf("Failed to convert balance")
 		return err
@@ -81,7 +81,6 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 		return err
 	}
 	fmt.Printf("wch---- END ext: %+v\n", ext)
-	return nil
 	hash, err := api.RPC.Author.SubmitExtrinsic(ext)
 	if err != nil {
 		fmt.Printf("Submit extrinsic error: %+v\n", err)

@@ -16,7 +16,8 @@ var (
 	// blocknum   uint64 = 10763536
 	blocknum uint64 = 10735225 // 广播成功 交易失败
 	// blocknum   uint64 = 10267021 // 广播成功 多交易示例
-	pubKey = "0xaa906db4057dc591b516da53f1af0fcaeea158e96236b7938e1cb830794de554"
+	// pubKey = "0xaa906db4057dc591b516da53f1af0fcaeea158e96236b7938e1cb830794de554"
+	pubKey = "0x6a8380249b1b728b39219d53cc6388cd3a823e2a9193604b4fec227ad1599905"
 	// pubKey = "0x705046c0c12d4ef9b46bcbfe74d481f5576c19c12c288ca11dc9c89ff1448b36"
 	// priKey = "farm bonus shoulder liquid chapter depart measure race candy risk discover print" // 5FvLuFtdv91A84PG6RmsDbzS7Q23PdBUxLSaWtfBB2BDhe7e
 	priKey = "shine quantum convince tattoo public boost remain lunar prefer wrong orient fame" // 5HDx4Pb4azp5tEwQCTr6xwTKvizrxsWjqhpPhr6GpJ7DDmzQ
@@ -54,22 +55,22 @@ func main() {
 
 	// accountInfo, _ := node.GetAccountInfoByPubKey(pubKey)
 	// fmt.Printf("wch------- accountInfo: %+v\n", accountInfo)
-	// 使用块高 查询块数据
-	fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n", blocknum)
-	err = node.GetBlockByBlocknum(blocknum)
-	if err != nil {
-		fmt.Printf("Get block by block num [%+v]: %+v\n", blocknum, err)
-		return
-	}
-	fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n\n", blocknum)
-
-	// // 使用公钥签名交易
-	// fmt.Printf("wch---- DoTransfer--------------------------------------------:\n")
-	// err = node.DoTransfer(priKey, pubKey)
+	// // 使用块高 查询块数据
+	// fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n", blocknum)
+	// err = node.GetBlockByBlocknum(blocknum)
 	// if err != nil {
-	// 	fmt.Printf("Do transfer by pubKey [%+v]: %+v\n", pubKey, err)
+	// 	fmt.Printf("Get block by block num [%+v]: %+v\n", blocknum, err)
+	// 	return
 	// }
-	// fmt.Printf("wch---- DoTransfer--------------------------------------------:\n\n")
+	// fmt.Printf("wch---- GetBlockByBlocknum- %v-------------------------------------------:\n\n", blocknum)
+
+	// 使用公钥签名交易
+	fmt.Printf("wch---- DoTransfer--------------------------------------------:\n")
+	err = node.DoTransfer(priKey, pubKey)
+	if err != nil {
+		fmt.Printf("Do transfer by pubKey [%+v]: %+v\n", pubKey, err)
+	}
+	fmt.Printf("wch---- DoTransfer--------------------------------------------:\n\n")
 
 	// node.GetAccountKeyPairFromSecret(priKey)
 
