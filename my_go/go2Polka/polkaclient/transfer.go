@@ -81,6 +81,7 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 		return err
 	}
 	fmt.Printf("wch---- END ext: %+v\n", ext)
+	return nil
 	hash, err := api.RPC.Author.SubmitExtrinsic(ext)
 	if err != nil {
 		fmt.Printf("Submit extrinsic error: %+v\n", err)
