@@ -4,6 +4,7 @@ import "fmt"
 
 var AMap map[string][]*A
 var BMap map[string][]*A
+var CMap map[string]*A
 
 type A struct {
 	Name string
@@ -23,6 +24,8 @@ func initMap() {
 	a["a"] = append(a["a"], tmp)
 	a["a"] = append(a["a"], tmp1)
 	AMap = a
+	CMap = make(map[string]*A)
+	CMap["b"] = tmp
 }
 
 func showTime(data map[string][]*A, name string) {
@@ -35,7 +38,7 @@ func showTime(data map[string][]*A, name string) {
 func pointUsed() {
 	showTime(AMap, "test1")
 	showTime(BMap, "test1-1")
-	BMap := make(map[string][]*A)
+	BMap = make(map[string][]*A)
 	for i, v := range AMap["a"] {
 		v1 := *v
 		v1.Name = fmt.Sprintf("c%d", i)
@@ -46,7 +49,22 @@ func pointUsed() {
 	showTime(BMap, "test2-1")
 }
 
+func showTime1(data map[string]*A, name string) {
+	fmt.Printf("wch==== name: %+v\n CMap: %+v\n", name, CMap["b"])
+}
+
+func pointUsed1() {
+	showTime1(CMap, "test1")
+	c := CMap["b"]
+	c.Name = "c1"
+	showTime1(CMap, "test2")
+	d := *(CMap["b"])
+	d.Name = "c3"
+	showTime1(CMap, "test3")
+}
+
 func main() {
 	initMap()
 	pointUsed()
+	pointUsed1()
 }
