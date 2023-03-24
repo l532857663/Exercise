@@ -64,14 +64,3 @@ func (gpt ChatGPT) Completions(msg []Messages) (resp Messages, err error) {
 	}
 	return resp, err
 }
-
-func (gpt ChatGPT) SendMsg(req string) (string, error) {
-	msgs := []Messages{
-		{Role: "user", Content: req},
-	}
-	resp, err := gpt.Completions(msgs)
-	if err != nil {
-		return "", err
-	}
-	return resp.Content, nil
-}
