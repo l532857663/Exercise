@@ -3,43 +3,45 @@ package main
 import (
 	"fmt"
 	"goBTC"
+	"goBTC/client"
+	"goBTC/global"
+	"goBTC/models"
+	"goBTC/utils"
 	"log"
 	"net/http"
 )
 
-var srv *goBTC.BTCClient
+var srv *client.BTCClient
 
-func init() {
-	// 构建节点客户端
-	nodeInfo := goBTC.BTC_GETBLOCK_MAIN
-	var err error
-	srv, err = goBTC.NewBTCClient(nodeInfo)
-	if err != nil {
-		fmt.Printf("NewBTCClient error: %+v, nodeInfo: %+v\n", err, nodeInfo)
-		return
+func main() {
+	fmt.Println("vim-go")
+	goBTC.MustLoad("./config.yml")
+	srv = global.Client
+	GetBlockInfoByHash()
+	// SignTx()
+	// GetWitness()
+	// GetInscribeHttp()
+	if global.MysqlFlag {
+		utils.SignalHandler("main", goBTC.Shutdown)
 	}
-	// 初始化脚本map
-	goBTC.InitBtcScriptMap()
 }
 
-func GetBlockInfo() {
-	// hash := "000000000000000000029730547464f056f8b6e2e0a02eaf69c24389983a04f5"
-	// blockInfo, err := srv.GetBlockInfoByHash(hash)
-	height := int64(767430)
-	blockInfo, err := srv.GetBlockInfoByHeight(height)
+func GetBlockInfoByHash() {
+	hash := "000000000000000000029730547464f056f8b6e2e0a02eaf69c24389983a04f5"
+	blockInfo, err := srv.GetBlockInfoByHash(hash)
 	if err != nil {
 		fmt.Printf("GetBlockInfoByHash error: %+v\n", err)
 		return
 	}
 	fmt.Printf("%+v\n", blockInfo.Header)
 	for i, tx := range blockInfo.Transactions {
-		res := goBTC.GetTxWitness(tx)
-		if res == "" {
+		witnessStr := client.GetTxWitness(tx)
+		if witnessStr == "" {
 			continue
 		}
-		resList := goBTC.GetScriptString(res)
-		if len(resList) == 4 {
-			fmt.Printf("[%d] %s : %s\n", i, resList[1], resList[2])
+		res := client.GetScriptString(witnessStr)
+		if res != nil {
+			fmt.Printf("[%d] txHash: %s, [ord] : %v\n", i, tx.TxHash().String(), res.ContentType)
 		}
 	}
 }
@@ -51,13 +53,17 @@ func GetWitnessResByHash(hash string) (string, error) {
 		fmt.Printf("GetRawTransactionByHash error: %+v\n", err)
 		return "", err
 	}
-	witness := goBTC.GetTxWitnessByTxHex(data.Hex)
-	resList := goBTC.GetScriptString(witness)
-	fmt.Printf("resList len: %+v\n", len(resList))
-	if len(resList) < 4 {
-		return "", fmt.Errorf("Not get Inscribe")
+	witness := client.GetTxWitnessByTxHex(data.Hex)
+	if witness == "" {
+		return "", nil
 	}
-	return resList[3], nil
+	fmt.Printf("witness: %+v\n", witness)
+	resList := client.GetScriptString(witness)
+	if resList == nil {
+		return "", nil
+	}
+	fmt.Printf("BRC20: %+v\n", resList.Brc20)
+	return resList.Body, nil
 }
 
 func GetInscribeHttp() {
@@ -127,14 +133,28 @@ func GetWitness() {
 	// hash := "ff4d5e838adfe81c8486ed8630be945badf9a5e75d07262f9d56964eba6ca032" // IMAGE_1
 	// hash := "67df85eb1a66211b4e761d0b76464e5d07e758426214dab5d6fe42b664d979a4" // AUDIO_1
 	// hash := "38d89d0506a5c936867b8a8c13b57d815cb2b2d86aee076ffec86b31c2cf51b5" // AUDIO_2
-	hash := "98005eed3ff26d93861be4e72f6931795bcb2652d0206bd00230293f1749c9ec"
-	GetWitnessResByHash(hash)
+	hash := "1ddc75ee758a8a3f15454812e649fc571ef50755feaf6bcf05f35e118c9a0e13"
+
+	ord, _ := GetWitnessResByHash(hash)
+	fmt.Printf("ord: len %d\n", len(ord))
+	if len(ord)/2 > 200 {
+		fmt.Printf("ord, len: %d\n", len(ord))
+	} else {
+		fmt.Printf("ord: %s\n", ord)
+	}
 }
 
-func main() {
-	fmt.Println("vim-go")
-	// GetBlockInfo()
-	// SignTx()
-	GetWitness()
-	// GetInscribeHttp()
+func SignTx() {
+	body := fmt.Sprintf(`{"p":"brc-20","op":"%s","tick":"%s","amt":"%s"}`, "deploy", "yyds", "21000")
+	filter := models.OrdInscribeData{
+		ContentType: "text/plain;charset=utf-8",
+		Body:        body,
+		Destination: "",
+		TxFee:       10,
+	}
+	_, err := srv.SignTx(filter)
+	if err != nil {
+		fmt.Printf("wch---- err: %+v\n", err)
+		return
+	}
 }

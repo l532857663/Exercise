@@ -1,4 +1,4 @@
-package goBTC
+package client
 
 import (
 	"fmt"

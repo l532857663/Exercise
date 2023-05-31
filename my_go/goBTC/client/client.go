@@ -1,4 +1,4 @@
-package goBTC
+package client
 
 import (
 	"fmt"
@@ -6,11 +6,13 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/rpcclient"
+	"github.com/minchenzz/brc20tool/pkg/btcapi/mempool"
 )
 
 type BTCClient struct {
-	Client *rpcclient.Client
-	Params *chaincfg.Params
+	Client        *rpcclient.Client
+	Params        *chaincfg.Params
+	MempoolClient *mempool.MempoolClient
 }
 
 type Node struct {
@@ -64,6 +66,8 @@ func NewBTCClient(conf *Node) (*BTCClient, error) {
 	default:
 		btcClient.Params = &chaincfg.Params{}
 	}
+
+	btcClient.MempoolClient = mempool.NewClient(btcClient.Params)
 
 	return btcClient, nil
 }

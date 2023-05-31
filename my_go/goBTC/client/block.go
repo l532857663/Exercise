@@ -1,4 +1,4 @@
-package goBTC
+package client
 
 import (
 	"log"
@@ -38,10 +38,5 @@ func (c *BTCClient) GetBlockInfoByHash(hash string) (*wire.MsgBlock, error) {
 		log.Println(err)
 		return nil, err
 	}
-	msgBlock, err := c.Client.GetBlock(h)
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
-	return msgBlock, nil
+	return c.Client.GetBlock(h)
 }

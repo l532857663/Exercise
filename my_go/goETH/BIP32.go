@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
+	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/tyler-smith/go-bip32"
 )
@@ -34,7 +35,6 @@ func main() {
 	// If so your real program should handle this by skipping the index
 	departmentKeys := map[string]*bip32.Key{}
 	departmentKeys["Sales"], _ = computerVoiceMasterKey.NewChildKey(0)
-	GetEthAddr(departmentKeys["Sales"].B58Serialize())
 	departmentKeys["Marketing"], _ = computerVoiceMasterKey.NewChildKey(1)
 	departmentKeys["Engineering"], _ = computerVoiceMasterKey.NewChildKey(2)
 	departmentKeys["Customer Support"], _ = computerVoiceMasterKey.NewChildKey(3)
@@ -46,14 +46,14 @@ func main() {
 	departmentAuditKeys["Engineering"] = departmentKeys["Engineering"].PublicKey()
 	departmentAuditKeys["Customer Support"] = departmentKeys["Customer Support"].PublicKey()
 
-	// // Print public keys
-	// for department, pubKey := range departmentAuditKeys {
-	// 	fmt.Println(department, pubKey)
-	// }
 	for name, key := range departmentKeys {
 		p58 := key.B58Serialize()
 		fmt.Printf("name: %+v, depth: %+v\n", name, key.Depth)
 		GetEthAddr(p58)
+	}
+	// Print public keys
+	for department, pubKey := range departmentAuditKeys {
+		fmt.Println(department, pubKey)
 	}
 }
 
@@ -61,6 +61,8 @@ func GetEthAddr(priB58 string) {
 	key, _ := hdkeychain.NewKeyFromString(priB58)
 	// fmt.Printf("priB58: %+v, priKey: %+v\n", priB58, key.String())
 	priKey, _ := key.ECPrivKey()
+	addr, _ := key.Address(&chaincfg.MainNetParams)
+	fmt.Printf("BTC: %s\n", addr.EncodeAddress())
 	ethAdd := crypto.PubkeyToAddress(priKey.ToECDSA().PublicKey).Hex()
 	fmt.Printf("wch---- eth: %+v\n", ethAdd)
 }

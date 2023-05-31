@@ -1,11 +1,11 @@
-package goBTC
+package client
 
 // 常用节点数据 NodeInfo ----------------------------------------------------------
 const (
 	// 节点类型
-	MainNet = "mainnet"
-	TestNet = "testnet3"
-	RegNet  = "regnet"
+	MainNet = "MAINNET"
+	TestNet = "TESTNET3"
+	RegNet  = "REGNET"
 )
 
 var (
@@ -28,6 +28,13 @@ var (
 	BTC_GETBLOCK_TEST = &Node{
 		Ip:       "https://btc.getblock.io/5b809c6e-3b63-4da1-af65-de036f020eef/testnet/",
 		Port:     0,
+		User:     "btc",
+		Password: "btc2021",
+		Net:      TestNet,
+	}
+	BTC_SELF_TEST = &Node{
+		Ip:       "blockchain-wallet-alb-281173487.ap-east-1.elb.amazonaws.com",
+		Port:     18443,
 		User:     "btc",
 		Password: "btc2021",
 		Net:      TestNet,
