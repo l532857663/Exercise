@@ -9,9 +9,9 @@ const (
 type OrdAction string
 
 const (
-	// 铭文信息常量
-	StateIsFalse = "0"
-	StateIsTrue  = "1"
+	// 铭文信息同步状态
+	StateSyncIsFalse = "0"
+	StateSyncIsTrue  = "1"
 	// 铭文操作类型
 	ActionForDeploy   OrdAction = "deploy"
 	ActionForMint     OrdAction = "mint"
@@ -21,4 +21,8 @@ const (
 	// 铭文类型
 	InscribeTypeNFT   = "NFT"
 	InscribeTypeBRC20 = "BRC20"
+	// 铭文状态
+	Brc20StateSuccess = "success"
+	Brc20StateInvalid = "invalid"
+	Brc20StatePending = "pending"
 )

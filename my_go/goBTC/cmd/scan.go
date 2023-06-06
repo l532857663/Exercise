@@ -23,7 +23,7 @@ func main() {
 	goBTC.MustLoad("./config.yml")
 	srv = global.Client
 	log = global.LOG
-	go GetBlockInfo(767430)
+	go GetBlockInfo(776161)
 	utils.SignalHandler("scan", goBTC.Shutdown)
 }
 
@@ -43,10 +43,12 @@ func GetBlockInfo(startHeight int64) {
 			continue
 		}
 		endTime := time.Now().Unix()
-		log.Info("Get block info", zap.Any("block height", i), zap.Any("have tx", len(blockInfo.Transactions)), zap.Any("time", endTime-startTime))
+		txInfoLength := len(blockInfo.Transactions)
+		log.Info("Get block info", zap.Any("block height", i), zap.Any("have tx", txInfoLength), zap.Any("time", endTime-startTime))
 		log.Debug("Get block", zap.Any("header", blockInfo.Header))
 		sum := 0
-		for j, tx := range blockInfo.Transactions[900:] {
+		for j := 0; j < txInfoLength; j++ {
+			tx := blockInfo.Transactions[j]
 			witnessStr := client.GetTxWitness(tx)
 			if witnessStr == "" {
 				continue
@@ -58,6 +60,7 @@ func GetBlockInfo(startHeight int64) {
 				txInfo, err := srv.GetRawTransactionByHash(txHash)
 				if err != nil {
 					log.Error("GetRawTransactionByHash", zap.Error(err))
+					j--
 					continue
 				}
 				err = ord.SaveInscribeInfoByTxInfo(i, res, txInfo)
@@ -65,7 +68,7 @@ func GetBlockInfo(startHeight int64) {
 					log.Error("SaveInscribeInfoByTxInfo", zap.Error(err))
 					continue
 				}
-				if res.Brc20 != nil {
+				if res.Brc20 != nil && res.Brc20.P != "" {
 					err := ord.SaveInscribeBrc20ByTxInfo(i, res, txInfo)
 					if err != nil {
 						log.Error("SaveInscribeBrc20ByTxInfo", zap.Error(err))

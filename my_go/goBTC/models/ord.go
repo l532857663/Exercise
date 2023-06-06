@@ -16,4 +16,5 @@ type OrdBRC20 struct {
 	Tick string `json:"tick"`
 	Amt  string `json:"amt"`
 	Lim  string `json:"lim"`
+	Max  string `json:"max"`
 }

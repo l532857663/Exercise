@@ -32,7 +32,7 @@ func GetDBTxnByName(dbName string) *gorm.DB {
 func Gorm(conf Mysql, zapLogger *zap.Logger, dbName string) {
 	mysqlConfig := gormConfig(conf, zapLogger)
 	InitDaoByName(conf, mysqlConfig, dbName)
-	zapLogger.Info("InitDao:", zap.Any("DbName", dbName))
+	zapLogger.Debug("InitDao:", zap.Any("DbName", dbName))
 }
 
 func GormMysql(m Mysql, config *gorm.Config) *gorm.DB {

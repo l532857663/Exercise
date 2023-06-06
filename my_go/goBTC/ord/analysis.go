@@ -76,6 +76,8 @@ func SaveInscribeBrc20ByTxInfo(blockHeight int64, res *models.OrdInscribeData, t
 		TxID:         txId,
 		BlockHeight:  strconv.FormatInt(blockHeight, 10),
 		BlockTime:    txInfo.Blocktime,
+		State:        inscribe.Brc20StatePending,
+		SyncState:    inscribe.StateSyncIsFalse,
 	}
 	err := ord.Create()
 	if err != nil {

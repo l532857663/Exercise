@@ -6,6 +6,7 @@ import (
 	"goBTC/db/inscribe"
 	"goBTC/global"
 	"goBTC/models"
+	"goBTC/service"
 	"goBTC/utils/logutils"
 	"io/ioutil"
 	"log"
@@ -21,6 +22,9 @@ func MustLoad(confPath string) {
 
 	// 初始化zap日志库
 	global.LOG = logutils.Log("", global.CONFIG.Zap)
+
+	// 初始化查询平台
+	service.InitPlatformMap()
 
 	// 数据库连接
 	if global.MysqlFlag {

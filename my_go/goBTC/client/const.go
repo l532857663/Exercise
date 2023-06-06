@@ -11,32 +11,32 @@ const (
 var (
 	// BTC 主网节点
 	BTC_GETBLOCK_MAIN = &Node{
-		Ip:       "https://btc.getblock.io/5b809c6e-3b63-4da1-af65-de036f020eef/mainnet/",
+		Ip:       "",
 		Port:     0,
-		User:     "btc",
-		Password: "btc2021",
+		User:     "",
+		Password: "",
 		Net:      MainNet,
 	}
 	BTC_SELF_MAIN = &Node{
-		Ip:       "167.235.193.148",
+		Ip:       "",
 		Port:     8332,
-		User:     "btc",
-		Password: "btc2021",
+		User:     "",
+		Password: "",
 		Net:      MainNet,
 	}
 	// 测试网节点
 	BTC_GETBLOCK_TEST = &Node{
-		Ip:       "https://btc.getblock.io/5b809c6e-3b63-4da1-af65-de036f020eef/testnet/",
+		Ip:       "",
 		Port:     0,
-		User:     "btc",
-		Password: "btc2021",
+		User:     "",
+		Password: "",
 		Net:      TestNet,
 	}
 	BTC_SELF_TEST = &Node{
-		Ip:       "blockchain-wallet-alb-281173487.ap-east-1.elb.amazonaws.com",
+		Ip:       "",
 		Port:     18443,
-		User:     "btc",
-		Password: "btc2021",
+		User:     "",
+		Password: "",
 		Net:      TestNet,
 	}
 )
@@ -99,18 +99,20 @@ func InitBtcScriptMap() {
 
 // BTC Script InscribeType --------------------------------------------------
 const (
-	InscribeTypeText  = "text"
-	InscribeTypeImage = "image"
-	InscribeTypeVideo = "video"
-	InscribeTypeAudio = "audio"
+	InscribeTypeText        = "text"
+	InscribeTypeImage       = "image"
+	InscribeTypeVideo       = "video"
+	InscribeTypeAudio       = "audio"
+	InscribeTypeApplication = "application"
 )
 
 var (
 	InscribeTypeMap = map[string]string{
-		InscribeTypeText:  "S",
-		InscribeTypeImage: "B",
-		InscribeTypeVideo: "B",
-		InscribeTypeAudio: "B",
+		InscribeTypeText:        "S",
+		InscribeTypeImage:       "B",
+		InscribeTypeVideo:       "B",
+		InscribeTypeAudio:       "B",
+		InscribeTypeApplication: "B",
 	}
 )
 

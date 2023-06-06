@@ -5,6 +5,7 @@ import (
 	"goBTC"
 	"goBTC/client"
 	"goBTC/global"
+	"goBTC/service"
 	"goBTC/utils"
 
 	"go.uber.org/zap"
@@ -21,5 +22,23 @@ func main() {
 	srv = global.Client
 	log = global.LOG
 	CheckBrc20Assets()
-	utils.SignalHandler("brc20Assets", shutdown)
+	if global.MysqlFlag {
+		utils.SignalHandler("brc20Assets", goBTC.Shutdown)
+	}
+}
+
+func CheckBrc20Assets() {
+	req := service.GetTransferReq{
+		Symbol: "btc",
+		Height: "767753",
+	}
+	blockTxInfo := service.GetTransferInfoForBlock(req)
+	if blockTxInfo.TotalPage != "0" {
+		for i, txInfo := range blockTxInfo.TransferList {
+			fmt.Printf("wch----- txInfo: %+v\n", txInfo)
+			if i == 5 {
+				break
+			}
+		}
+	}
 }

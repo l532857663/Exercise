@@ -89,24 +89,35 @@ func GetScriptString(data string) *models.OrdInscribeData {
 		fmt.Printf("flage1: [%v] char: [%x]\n", flage1, char)
 		return nil
 	}
-	// Get 铭文 ord
+	// Get 铭文 ord [OP_1指示下一次推送包含内容类型，OP_0 指示后续数据推送包含内容本身。]
 	res, i = getHexData(char, i, "S")
+	if res != "ord" {
+		fmt.Printf("%s: %s\n", res, dataType)
+		return nil
+	}
 	// Get 铭文类型
-	i += 2 // 跳过 0101
+	if len(char) < i+2 {
+		return nil
+	}
+	flage2 := hex.EncodeToString(char[i : i+2])
+	if flage2 != "0101" {
+		return nil
+	}
+	i += 2 // 跳过 OP_1
 	dataType, i = getHexData(char, i, "S")
 	resObj.ContentType = dataType
 	tList := strings.Split(dataType, "/")
 	inscribeType := tList[0]
 	IType, ok := InscribeTypeMap[inscribeType]
-	if res != "ord" || !ok {
-		fmt.Printf("%s: %s\n", res, dataType)
-		return nil
+	if !ok {
+		IType = "B"
 	}
 
 	// 后段数据
-	if char[i] == 0x00 {
-		i++ // OP_FALSE
+	if char[i] != 0x00 {
+		return nil
 	}
+	i++ // 跳过OP_0
 	lenChar := len(char[i:])
 	res = ""
 	start := 0

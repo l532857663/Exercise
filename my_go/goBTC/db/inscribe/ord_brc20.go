@@ -18,9 +18,12 @@ type OrdToken struct {
 	Action       OrdAction `gorm:"not null;column:action"`                  // 铭文操作类型：deploy、mint、inscribeTransfer、transfer，联合索引 : op
 	Amt          string    `gorm:"column:amt"`                              // BRC20操作数量
 	Lim          string    `gorm:"column:lim"`                              // BRC20操作数量
+	Max          string    `gorm:"column:max"`                              // BRC20代币最大数量
 	TxID         string    `gorm:"column:txId"`                             // 创建HASH
 	BlockHeight  string    `gorm:"column:block_height"`                     // 区块高度
 	BlockTime    int64     `gorm:"column:block_time"`                       // 交易区块时间
+	State        string    `gorm:"column:state"`                            // 交易状态，可选值：success, invalid, pending
+	SyncState    string    `gorm:"column:sync_state"`                       // 同步状态 0-未同步，1-已同步
 }
 
 func (this *OrdToken) TableName() string {
