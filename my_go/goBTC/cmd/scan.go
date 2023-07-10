@@ -23,7 +23,7 @@ func main() {
 	goBTC.MustLoad("./config.yml")
 	srv = global.Client
 	log = global.LOG
-	go GetBlockInfo(776161)
+	go GetBlockInfo(778862)
 	utils.SignalHandler("scan", goBTC.Shutdown)
 }
 

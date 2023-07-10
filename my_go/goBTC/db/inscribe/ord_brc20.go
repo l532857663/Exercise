@@ -18,7 +18,7 @@ type OrdToken struct {
 	Action       OrdAction `gorm:"not null;column:action"`                  // 铭文操作类型：deploy、mint、inscribeTransfer、transfer，联合索引 : op
 	Amt          string    `gorm:"column:amt"`                              // BRC20操作数量
 	Lim          string    `gorm:"column:lim"`                              // BRC20操作数量
-	Max          string    `gorm:"column:max"`                              // BRC20代币最大数量
+	Supply       string    `gorm:"column:Supply"`                           // BRC20代币最大数量
 	TxID         string    `gorm:"column:txId"`                             // 创建HASH
 	BlockHeight  string    `gorm:"column:block_height"`                     // 区块高度
 	BlockTime    int64     `gorm:"column:block_time"`                       // 交易区块时间

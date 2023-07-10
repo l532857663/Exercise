@@ -73,6 +73,7 @@ func SaveInscribeBrc20ByTxInfo(blockHeight int64, res *models.OrdInscribeData, t
 		Action:       action,
 		Amt:          res.Brc20.Amt,
 		Lim:          res.Brc20.Lim,
+		Supply:       res.Brc20.Max,
 		TxID:         txId,
 		BlockHeight:  strconv.FormatInt(blockHeight, 10),
 		BlockTime:    txInfo.Blocktime,
