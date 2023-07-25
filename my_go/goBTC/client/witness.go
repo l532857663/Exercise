@@ -55,8 +55,8 @@ func GetTxWitness(tx *wire.MsgTx) string {
 // 解析Input Script inscribe
 func GetScriptString(data string) *models.OrdInscribeData {
 	char, err := hex.DecodeString(data)
-	if err != nil {
-		fmt.Println("The string not hex string")
+	if err != nil || len(char) == 0 {
+		fmt.Println("The string not hex string:", err)
 		return nil
 	}
 	var (
@@ -153,8 +153,17 @@ func GetScriptString(data string) *models.OrdInscribeData {
 	resObj.Body = res
 	resLength := int64(len(res))
 	resObj.ContentSize = resLength / 2
-	if inscribeType == InscribeTypeText {
+	if inscribeType == InscribeTypeText || inscribeType == InscribeTypeApplication {
 		json.Unmarshal([]byte(res), &resObj.Brc20)
+		if resObj.Brc20 == nil {
+			resB, err := hex.DecodeString(res)
+			if err == nil {
+				json.Unmarshal(resB, &resObj.Brc20)
+				if resObj.Brc20 != nil {
+					resObj.Body = string(resB)
+				}
+			}
+		}
 		resObj.ContentSize = resLength
 	}
 	return resObj

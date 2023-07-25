@@ -14,6 +14,7 @@ const (
 	GetAddressTransaction = "/api/v5/explorer/address/transaction-list"
 	GetTransactionForUTXO = "/api/v5/explorer/address/unspent"
 	GetBlockTransaction   = "/api/v5/explorer/block/transaction-list"
+	GetInscriptionList    = "/api/v5/explorer/btc/inscriptions-list"
 )
 
 func NewPlatformInfo() *Platform {

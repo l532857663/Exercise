@@ -6,7 +6,7 @@ import (
 	"goBTC/db/inscribe"
 	"goBTC/global"
 	"goBTC/models"
-	"goBTC/service"
+	"goBTC/utils/http"
 	"goBTC/utils/logutils"
 	"io/ioutil"
 	"log"
@@ -24,7 +24,10 @@ func MustLoad(confPath string) {
 	global.LOG = logutils.Log("", global.CONFIG.Zap)
 
 	// 初始化查询平台
-	service.InitPlatformMap()
+	// service.InitPlatformMap()
+
+	// 初始化HTTPS数据
+	http.InitHttps(global.CONFIG.Https.IsHttps, global.CONFIG.Https.CaCert)
 
 	// 数据库连接
 	if global.MysqlFlag {
@@ -42,7 +45,7 @@ func Shutdown() {
 
 func newBTCClient() *client.BTCClient {
 	// 构建节点客户端
-	nodeInfo := client.BTC_GETBLOCK_MAIN
+	nodeInfo := client.BTC_QUICKNODE_MAIN
 	cli, err := client.NewBTCClient(nodeInfo)
 	if err != nil {
 		log.Fatalf("NewBTCClient error: %+v, nodeInfo: %+v\n", err, nodeInfo)

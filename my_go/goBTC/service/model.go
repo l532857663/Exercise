@@ -27,3 +27,13 @@ type GetTransferReq struct {
 	Height       string `json:"height"`                          // 区块高度
 	ProtocolType string `json:"protocolType"`                    // 合约协议类型
 }
+
+// 查询铭文数据
+type GetInscriptionReq struct {
+	PageReq
+	Symbol            string `json:"symbol"       binding:"required"` // 主链
+	Token             string `json:"token"`                           // 	代币名称,等于 tick
+	InscriptionId     string `json:"inscriptionId"`                   // id(交易哈希i0)
+	InscriptionNumber string `json:"inscriptionNumber"`               // 铭文编号
+	State             string `json:"state"`                           // 铭文状态
+}

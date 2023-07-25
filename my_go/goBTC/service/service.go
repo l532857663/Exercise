@@ -142,3 +142,30 @@ func GetTransferInfoForBlock(req GetTransferReq) *models.GetTransferResp {
 	res := NilTransferResp
 	return res
 }
+
+func GetInscriptionInfo(req GetInscriptionReq) *models.GetInscribeResp {
+	// 使用多平台查询资产信息
+	// symbol := strings.ToUpper(req.Symbol)
+	for platform, obj := range PlatformMap {
+		global.LOG.Info("use the", zap.String("platform", platform), zap.Any("req", req))
+		filter := models.InscribeFilter{
+			Page:              req.PageIndex,
+			Limit:             req.PageSize,
+			Token:             req.Token,
+			InscriptionId:     req.InscriptionId,
+			InscriptionNumber: req.InscriptionNumber,
+			State:             req.State,
+		}
+		client := obj.(GetInscriptions)
+		res, err := client.GetInscriptionList(filter)
+		if err != nil {
+			global.LOG.Error("The platform get balance error", zap.Any("platform", platform))
+			continue
+		}
+		if res != nil {
+			return res
+		}
+	}
+	res := NilInscribeResp
+	return res
+}

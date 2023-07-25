@@ -57,3 +57,28 @@ type GetTransferUTXOResp struct {
 	Balance          string `json:"balance"`          // 该地址余额
 	Symbol           string `json:"symbol"`           // 币种
 }
+
+type GetInscribeResp struct {
+	Page             string             `json:"page"`
+	Limit            string             `json:"limit"`
+	TotalPage        string             `json:"totalPage"`
+	TotalInscription string             `json:"totalInscription"`
+	InscriptionsList []InscriptionsList `json:"inscriptionsList"`
+}
+
+type InscriptionsList struct {
+	InscriptionId     string `json:"inscriptionId"`
+	InscriptionNumber string `json:"inscriptionNumber"`
+	Location          string `json:"location"`
+	Token             string `json:"token"`
+	State             string `json:"state"`
+	Msg               string `json:"msg"`
+	TokenType         string `json:"tokenType"`
+	ActionType        string `json:"actionType"`
+	LogoURL           string `json:"logoUrl"`
+	OwnerAddress      string `json:"ownerAddress"`
+	TxID              string `json:"txId"`
+	BlockHeight       string `json:"blockHeight"`
+	ContentSize       string `json:"contentSize"`
+	Time              string `json:"time"`
+}

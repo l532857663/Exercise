@@ -27,7 +27,8 @@ func main() {
 }
 
 func GetBlockInfoByHash() {
-	hash := "000000000000000000029730547464f056f8b6e2e0a02eaf69c24389983a04f5"
+	// hash := "000000000000000000029730547464f056f8b6e2e0a02eaf69c24389983a04f5"
+	hash := "00000000000000000000499cd89c4f19483a2081c2dcfbbbf7b2c2150c37d7b5"
 	blockInfo, err := srv.GetBlockInfoByHash(hash)
 	if err != nil {
 		fmt.Printf("GetBlockInfoByHash error: %+v\n", err)
@@ -63,7 +64,7 @@ func GetWitnessResByHash(hash string) (string, error) {
 		return "", nil
 	}
 	fmt.Printf("body len: %+v\n", resList.ContentSize)
-	fmt.Printf("Brc20: %+v\n", resList.Brc20)
+	fmt.Printf("Brc20: %+v\n", resList.Brc20.Tick)
 	return resList.Body, nil
 }
 
@@ -81,10 +82,17 @@ func GetWitness() {
 	// hash := "ff4d5e838adfe81c8486ed8630be945badf9a5e75d07262f9d56964eba6ca032" // IMAGE_1
 	// hash := "67df85eb1a66211b4e761d0b76464e5d07e758426214dab5d6fe42b664d979a4" // AUDIO_1
 	// hash := "38d89d0506a5c936867b8a8c13b57d815cb2b2d86aee076ffec86b31c2cf51b5" // AUDIO_2
-	hash := "0167d32a7f1c48434e998ae4fe109e58106b6e6d31e8612c901705dcb476f034"
+	// 铭文流转
+	// hash := "5ee59cb5f2b88d1aa1dd7ef0f6263a2682412866e8cdb73275fa013429169623"
+	hash := "231746e07440a6fa81d45f0d26e0510329175de1cac07b64c0a53faafb3b551d"
 
 	body, _ := GetWitnessResByHash(hash)
-	fmt.Printf("body: %s\n", body)
+	l := len(body)
+	if l > 500 {
+		fmt.Printf("body len: %s\n", l)
+	} else {
+		fmt.Printf("body: %s\n", body)
+	}
 }
 
 func SignTx() {

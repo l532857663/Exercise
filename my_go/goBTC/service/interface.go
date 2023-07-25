@@ -27,5 +27,10 @@ type (
 		GetTransferUTXOByAddress(symbol, address string) ([]*models.GetTransferUTXOResp, error)
 	}
 
+	GetInscriptions interface {
+		Platform
+		GetInscriptionList(filter models.InscribeFilter) (*models.GetInscribeResp, error)
+	}
+
 	Platforms map[string]Platform
 )

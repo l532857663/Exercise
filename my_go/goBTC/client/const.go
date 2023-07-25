@@ -17,11 +17,18 @@ var (
 		Password: "",
 		Net:      MainNet,
 	}
+	BTC_QUICKNODE_MAIN = &Node{
+		Ip:       "https://warmhearted-old-glade.btc.discover.quiknode.pro/ed51a9fb77aab057c817f6decbfa1d0a33dfc098/",
+		Port:     0,
+		User:     "btc",
+		Password: "btc2021",
+		Net:      MainNet,
+	}
 	BTC_SELF_MAIN = &Node{
-		Ip:       "",
+		Ip:       "167.235.193.148",
 		Port:     8332,
-		User:     "",
-		Password: "",
+		User:     "btc",
+		Password: "btc2021",
 		Net:      MainNet,
 	}
 	// 测试网节点

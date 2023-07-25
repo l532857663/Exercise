@@ -11,4 +11,9 @@ var (
 		TotalPage:      "0",
 		TransferList:   NilTransferList,
 	}
+	NilInscriptionsList = []models.InscriptionsList{}
+	NilInscribeResp     = &models.GetInscribeResp{
+		TotalPage:        "0",
+		InscriptionsList: NilInscriptionsList,
+	}
 )

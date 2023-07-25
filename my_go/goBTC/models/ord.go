@@ -8,6 +8,8 @@ type OrdInscribeData struct {
 	Destination string
 	Brc20       *OrdBRC20
 	TxFee       int64
+	// 该交易是否是铭文UTXO转账
+	TxHaveInscribe bool
 }
 
 type OrdBRC20 struct {

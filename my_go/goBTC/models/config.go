@@ -3,8 +3,9 @@ package models
 import "goBTC/db"
 
 type Server struct {
-	Mysql db.Mysql `mapstructure:"mysql"           json:"mysql"           yaml:"mysql"` // 数据库配置
-	Zap   Zap      `mapstructure:"zap"             json:"zap"             yaml:"zap"`   // 日志配置
+	Mysql db.Mysql `mapstructure:"mysql"   json:"mysql"   yaml:"mysql"` // 数据库配置
+	Zap   Zap      `mapstructure:"zap"     json:"zap"     yaml:"zap"`   // 日志配置
+	Https Https    `mapstructure:"https"   json:"https"   yaml:"https"` // 网络配置
 }
 
 type Zap struct {
@@ -17,4 +18,9 @@ type Zap struct {
 	EncodeLevel   string `mapstructure:"encode-level"   json:"encodeLevel"   yaml:"encode-level"`   // 日志编码类型
 	StacktraceKey string `mapstructure:"stacktrace-key" json:"stacktraceKey" yaml:"stacktrace-key"` // 堆栈跟踪
 	LogInConsole  bool   `mapstructure:"log-in-console" json:"logInConsole"  yaml:"log-in-console"` // 是否在工作台输出日志
+}
+
+type Https struct {
+	IsHttps bool   `mapstructure:"is_https" json:"is_https" yaml:"is_https"` // 是否开启HTTPS
+	CaCert  string `mapstructure:"ca_cert"  json:"ca_cert"  yaml:"ca_cert"`  // 根证书路径
 }
