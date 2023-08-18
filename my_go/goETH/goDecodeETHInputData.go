@@ -12,7 +12,6 @@ import (
 func main() {
 	// 还原交易对象
 	encodedTxStr := "0xf889188504a817c800832dc6c09405e56888360ae54acf2a389bab39bd41e3934d2b80a4ee919d50000000000000000000000000000000000000000000000000000000000000007b25a041c4a2eb073e6df89c3f467b3516e9c313590d8d57f7c217fe7e72a7b4a6b8eda05f20a758396a5e681ce1ab4cec749f8560e28c9eb91072ec7a8acc002a11bb1d"
-	// encodedTxStr := "0x095ea7b300000000000000000000000070897189b10b5f145e9cf3384146a4bba9914a72ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 	encodedTx, err := hexutil.Decode(encodedTxStr)
 	if err != nil {
 		fmt.Println("hexutil.Decode failed: ", err.Error())
