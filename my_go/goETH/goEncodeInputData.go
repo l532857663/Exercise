@@ -16,28 +16,10 @@ type Struct0 struct {
 }
 
 func main() {
-	calls := []Struct0{
-		Struct0{
-			Target:   common.HexToAddress("0x1A72D8B4E0738c8f3871E48D91782CD7F899e48D"),
-			CallData: []byte("0x4d2301cc00000000000000000000000039447c3040124057147512c3d1477dac339fcf8c"),
-		},
-	}
-	fmt.Printf("calls: %+v\n", calls)
-	params := "aggregate"
-	// contractAbi, argsNew, err := GetAbiAndArgs(abiStr, params, calls)
-	// if err != nil {
-	// 	fmt.Printf("GetAbiAndArgs error: %+v\n", err)
-	// 	return
-	// }
 	// Erc20交易
-	fmt.Printf("wch--- Erc20Abi: %+v\n", Erc20Abi.Methods[params])
-	input, err := Erc20Abi.Pack(params, calls)
-	if nil != err {
-		fmt.Printf("contractAbi.Pack error: %+v\n", err)
-		return
+	for k, v := range Erc20Abi.Methods {
+		fmt.Printf("wch--- Erc20Abi: name: %+v, %+v\n", k, hex.EncodeToString(v.ID))
 	}
-	fmt.Printf("get input: %+v\n", input)
-	fmt.Printf("get input str: %+v\n", hex.Dump(input))
 }
 
 // 根据合约方法处理参数类型
