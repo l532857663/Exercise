@@ -5,6 +5,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 func test1() {
@@ -427,6 +429,22 @@ func test9() {
 	fmt.Printf("myslice的第四个元素为: %d", myslice[5])
 }
 
+func test10() {
+	// test := "0xa9059cbb"
+	// testByte := byte(test)
+	// fmt.Printf("wch---- byte: %+v\n", testByte)
+	a := "23"
+	b := "23"
+	a1, _ := decimal.NewFromString(a)
+	b1, _ := decimal.NewFromString(b)
+	fmt.Printf("wch----- a1: %+v\n", a1)
+	if b1.GreaterThan(a1) {
+		fmt.Printf("true\n")
+		return
+	}
+	fmt.Printf("false\n")
+}
+
 func main() {
 	// test1()
 	// 使用两个队列模拟栈
@@ -444,5 +462,7 @@ func main() {
 	// 输出100内2、3、5的倍数?
 	// test8()
 	// 数组和切片
-	test9()
+	// test9()
+	// Byte
+	test10()
 }

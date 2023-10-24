@@ -26,7 +26,7 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 	}
 	fmt.Printf("wch---- toAddr: %+v\n", toAddr)
 	// 0.1 unit of transfer
-	bal, ok := new(big.Int).SetString("10000000000000", 10)
+	bal, ok := new(big.Int).SetString("20000000000", 10)
 	if !ok {
 		err = fmt.Errorf("Failed to convert balance")
 		return err
@@ -94,6 +94,7 @@ func (n *Node) DoTransfer(priKey, pubKey string) error {
 
 // 解析block数据
 func (n *Node) ShowBlockInfo(theHash string, block *types.SignedBlock) error {
+	fmt.Printf("wch------- block: %+v\n", block.Justification)
 	header := block.Block.Header
 	extrinsics := block.Block.Extrinsics
 	// 解析block头数据
